@@ -1,0 +1,17 @@
+# Core — required for the app to run
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+seaborn>=0.13
+matplotlib>=3.7
+streamlit>=1.32
+joblib>=1.3
+pyyaml>=6.0
+
+# xgboost is intentionally NOT pinned here as a hard requirement.
+# src/attrition_predictor/model.py already handles its absence gracefully
+# (falls back to GradientBoostingClassifier) — this keeps deployment on
+# newer/bleeding-edge Python versions from failing if xgboost doesn't yet
+# ship a prebuilt wheel for that version. Install it yourself for the
+# extra candidate model:
+#   pip install xgboost>=2.0

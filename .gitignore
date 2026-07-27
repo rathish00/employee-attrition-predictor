@@ -1,0 +1,26 @@
+# Generated data & model artifacts (regenerate via the pipeline, don't commit)
+data/*.csv
+models/*.pkl
+outputs/eda/*
+outputs/model/*
+!outputs/eda/.gitkeep
+!outputs/model/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Env / editors
+.env
+.venv/
+venv/
+.vscode/
+.idea/
+.DS_Store
+
+# Test scratch files
+tests/_tmp_*.csv

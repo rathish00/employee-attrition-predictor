@@ -1,0 +1,25 @@
+paths:
+  raw_data: "data/WA_Fn-UseC_-HR-Employee-Attrition.csv"
+  cleaned_data: "data/cleaned_attrition.csv"
+  model_file: "models/attrition_model.pkl"
+  schema_file: "models/feature_columns.pkl"
+  eda_output_dir: "outputs/eda"
+  model_output_dir: "outputs/model"
+
+target_column: "Attrition"
+id_columns: ["EmployeeNumber"]
+constant_columns: ["EmployeeCount", "Over18", "StandardHours"]
+
+model:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  random_forest_params:
+    n_estimators: 300
+    max_depth: 8
+    min_samples_leaf: 3
+    class_weight: "balanced"
+  gradient_boosting_params:
+    n_estimators: 200
+    max_depth: 3
+    learning_rate: 0.05
