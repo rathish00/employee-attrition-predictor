@@ -98,7 +98,7 @@ def login_screen() -> None:
     with st.form("login_form"):
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
-        submitted = st.form_submit_button("Sign In", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("Sign In", type="primary", width="stretch")
     if submitted:
         try:
             secrets = st.secrets.get("credentials", None)
@@ -200,7 +200,7 @@ def page_single_employee(model: AttritionModel) -> None:
         "EducationField": education_field, **defaults,
     }
 
-    if st.button("🔍 Predict Risk", type="primary", use_container_width=True):
+    if st.button("🔍 Predict Risk", type="primary", width="stretch"):
         try:
             input_df = pd.DataFrame([employee])
             probability = float(model.predict_proba(input_df)[0])
@@ -277,7 +277,7 @@ def page_batch_scoring(model: AttritionModel) -> None:
     st.markdown("**Highest-risk employees**")
     st.dataframe(
         batch_df[["Risk Score", "Risk Tier"] + model.required_columns].head(25),
-        use_container_width=True,
+        width="stretch",
     )
     st.download_button(
         "Download full scored CSV",
@@ -336,7 +336,7 @@ def main() -> None:
             label_visibility="collapsed",
         )
         st.divider()
-        if st.button("🚪 Logout", use_container_width=True):
+        if st.button("🚪 Logout", width="stretch"):
             st.session_state.authenticated = False
             st.rerun()
 
