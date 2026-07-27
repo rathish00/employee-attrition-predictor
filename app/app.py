@@ -36,10 +36,10 @@ CUSTOM_CSS = """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 
-@st.cache_resource(show_spinner="Setting up the model...")
+@st.cache_resource(show_spinner="Setting up the model (first run trains it — this takes a few seconds)...")
 def load_model() -> AttritionModel:
     config = Config.load()
-    return ensure_model_ready(config, on_progress=lambda msg: st.toast(msg))
+    return ensure_model_ready(config)
 
 
 def render_risk_card(probability: float, tier: str) -> None:
