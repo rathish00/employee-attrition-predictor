@@ -244,10 +244,11 @@ class AttritionModel:
         self._validate(df)
         return self.pipeline.predict_proba(df[self.required_columns])[:, 1]
 
-    def explain_row(self, df: pd.DataFrame) -> pd.Series:
-        """Feature importances for the underlying model (global, not
-        per-row SHAP — the model doesn't ship a per-row explainer to keep
-        the dependency footprint small). Used by the app to show top drivers."""
+    def global_feature_importance(self, top_n: int = 15) -> pd.Series:
+        """Feature importances (tree models) or |coefficients| (linear
+        models) for the underlying model, sorted descending — a GLOBAL
+        explanation, not per-row (this model doesn't ship a per-row/SHAP
+        explainer, to keep the dependency footprint small)."""
         clf = self.pipeline.named_steps["clf"]
         feature_names = self.pipeline.named_steps["prep"].get_feature_names_out()
         if hasattr(clf, "feature_importances_"):
@@ -256,4 +257,4 @@ class AttritionModel:
             values = np.abs(clf.coef_[0])
         else:
             return pd.Series(dtype=float)
-        return pd.Series(values, index=feature_names).sort_values(ascending=False)
+        return pd.Series(values, index=feature_names).sort_values(ascending=False).head(top_n)
